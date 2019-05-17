@@ -1,98 +1,94 @@
-# Botkit Anywhere
+# Botkit Starter Kit for Microsoft Teams Bots
 
-Embed a bot in any web page or app with Botkit for the Web.
+This repo contains everything you need to get started building a [Microsoft Teams](https://products.office.com/en-us/microsoft-teams/group-chat-software) bot with [Botkit](https://botkit.ai/teams)
 
-Botkit Anywhere is a self-contained chat server, API and web-based messaging client that has been built on top of the industry leading Botkit development stack.
+Botkit is designed to ease the process of designing and running useful, creative bots that live inside messaging platforms. Bots are applications that can send and receive messages, and in many cases, appear alongside their human counterparts as users.
 
-## Get Started
+Some bots talk like people, others silently work in the background, while others present interfaces much like modern mobile applications. Botkit gives developers the necessary tools for building bots of any kind! It provides an easy-to-understand interface for sending and receiving messages so that developers can focus on creating novel applications and experiences instead of dealing with API endpoints.
 
-You can deploy this starter kit project directly to Glitch, or clone it to your own development environment:
+Our goal with Botkit is to make bot building easy, fun, and accessible to anyone with the desire to create a future filled with talking machines!
 
-* [Remix on Glitch](https://glitch.com/~botkit-web)
+### What's Included
 
-* Use the Botkit command line utility to install locally:
+* [Botkit core](https://botkit.ai/docs/core.html) - a complete programming system for building conversational software
+* [Botkit for Microsoft Teams](https://botkit.ai/docs/readme-teams.html) - extensions to Botkit to take advantage of Teams-specific features and APIs
+* [Pre-configured Express.js webserver](https://expressjs.com/) including:
+  * A customizable "Install my Bot" homepage
+	* Webhook endpoints for communicating with platforms
+* Sample skill modules that demonstrate various features of Botkit
+* A sample "note taker" app that weaves together bot features, as well as:
+  * A sample [static tab](https://msdn.microsoft.com/en-us/microsoft-teams/tabs)
+  * A sample [configurable tab](https://msdn.microsoft.com/en-us/microsoft-teams/tabs) (along with sample settings pages)
+  * A sample skill for responding to [Compose Extension](https://msdn.microsoft.com/en-us/microsoft-teams/composeextensions)queries
 
-```bash
-npm i -g botkit
-botkit new -p web
+### Setup Botkit
+
+[Remix this project on Glitch](https://glitch.com/~botkit-teams)
+
+[Deploy to Heroku](https://heroku.com/deploy?template=https://github.com/howdyai/botkit-starter-teams/master)
+
+Clone this repository using Git:
+
+`git clone https://github.com/howdyai/botkit-starter-teams.git`
+
+Install dependencies, including [Botkit](https://github.com/howdyai/botkit):
+
+```
+cd botkit-starter-teams
+npm install
 ```
 
-## Add Features with Botkit CMS
+#### Set up your Bot Framework profile and sideload your bot
 
-Bots can be thought of as a series of pre-defined conversations, navigated by users who exchange messages with the bot application. The bot is responsible for replying with the appropriate message, and taking whatever automated actions are necessary to satisfy the user. Each "feature" of your bot will consist of one or more conversations, along with some code to power the related actions.
+To get everything up and running, you'll have to create an account and bot profile inside Microsoft's [Bot Framework](http://dev.botframework.com) tool.
+You also need to create and "sideload" a application package. This is a multi-step process, but only takes a few minutes.
 
-[Botkit CMS](https://github.com/howdyai/botkit-cms) is an optional add-on for Botkit that enables developers, designers, copywriters and other botmakers to build features for bots without writing any code by providing dialog authoring and content management tools. The visual authoring environment in Botkit CMS can be used to create branching conversations, Q&A systems, complex transactions, or any other type of conversational content.
+We have created a detailed step-by-step guide to setting up your bot for Teams in this [provisioning guide](https://botkit.ai/docs/provisioning/teams.html).
 
-Conversational content in Botkit CMS can be updated and expanded at any time, without requiring changes to the bot's code.
+Now comes the fun part of [making your bot!](https://botkit.ai/docs/)
 
-Then, with just a bit of code, your bot can access and use information from databases,
-APIs and third party services as part of the conversation. The business logic
-of your bot stays clean and easy to maintain by separating the form from the functionality.
+## Extend This Starter kit
 
-[Botkit CMS](https://github.com/howdyai/botkit-cms)
+This starter kit is designed to provide developers a robust starting point for building a custom bot. Included in the code are a set of sample bot "skills" that illustrate various aspects of the Botkit SDK features.  Once you are familiar with how Botkit works, you may safely delete all of the files in the `skills/` subfolder.
+
+Developers will build custom features as modules that live in the `skills/` folder. The main bot application will automatically include any files placed there.
+
+A skill module should be in the format:
+
+```
+module.exports = function(controller) {
+
+    // add event handlers to controller
+    // such as hears handlers that match triggers defined in code
+    // or controller.studio.before, validate, and after which tie into triggers
+    // defined in the Botkit Studio UI.
+
+}
+```
 
 
-## The full power of Botkit, in your app or site
+## Customize Storage
+By default, the starter kit uses a simple file-system based storage mechanism to record information about the teams and users that interact with the bot. While this is fine for development, or use by a single team, most developers will want to customize the code to use a real database system.
 
-Botkit's SDK powers tens-of-thousands of bots, and supports development of chatbots on
-all major messaging platforms. Members of the Botkit developer community have created dozens of useful plugins,
-including plugins that add compatibility with top A.I. technologies like IBM Watson, DialogFlow, and RASA.
+There are [Botkit plugins for all the major database systems](https://botkit.ai/docs/readme-middlewares.html#storage-modules) which can be enabled with just a few lines of code.
 
-New code-driven features can be added to this starter kit by creating "skills" which are
-Javascript modules containing a set of specialized pattern matchers, handler functions and middlewares.
-
-* **[How to build Botkit Skill Modules](docs/how_to_build_skills.md)**
-* [Full Botkit Documentation](https://github.com/howdyai/botkit/blob/master/docs/readme.md#developing-with-botkit)
-
-
-## Customizable web-based chat client
-
-Botkit Anywhere includes an easy to customize chat client that can be used as a full-screen web app, built into the structure
-of an existing page, or embedded in an entire site with an iframe.
-
-The built-in client uses websocket connections to establish a real time connection
-to your Botkit app in order to instantly send and receive messages. It supports bot-friendly
-features like quick replies and image attachments. It gracefully handles failed connections
-and reconnects.
-
-The chat client is built with HTML, CSS and vanilla Javascript.
-Developers can customize the look and feel of the client by modifying the included markup and CSS.
-New chat features such as custom cards or actions can be added with just a little bit of code.
-
-* **[Web Chat Client Overview](docs/botkit_web_client.md)**
-* [How to embed a bot in your website](docs/botkit_web_client.md#embed-botkit-in-a-website-with-iframes)
-* [How to customize the look and feel of your web chat](docs/botkit_web_client.md#customize-the-look-and-feel-of-the-chat-interface)
-* [How to extend the UI of your web chat with custom fields](docs/botkit_web_client.md#using-botkit-studio-custom-fields-to-add-custom-features)
-* [How to share user account/profile info with Botkit](docs/botkit_web_client.md#share-user-accounts--profile-data-with-botkit)
-
-## Chat Server and API
-
-Botkit Anywhere's built-in chat server can handle thousands of simultaneous one-on-one conversations with your users.
-The chat server provides both a websocket and a webhook based interface for sending and receiving messages.
-It is a great solution for including one-on-one chat in a web site or native app.
-
-Additionally, Botkit Anywhere includes APIs for retrieving a user's conversation history,
-and account-linking features that enable you to identify existing users to your bot.
-
-* **[Chat Server Overview](docs/botkit_chat_server.md)**
-* [Communicating with Websockets](docs/botkit_chat_server.md#using-websockets)
-* [Communicating with Webhooks](docs/botkit_chat_server.md#using-webhooks)
-* [How to enable message history API](docs/botkit_chat_server.md#enable-message-history)
+We have enabled our [Mongo middleware]() for starters in this project. To use your own Mongo database, just fill out `MONGO_URI` in your `.env` file with the appropriate information. For tips on reading and writing to storage, [check out these medium posts](https://botkit.groovehq.com/knowledge_base/categories/build-a-bot)
 
 # Developer & Support Community
 
-You can find full documentation for Botkit on [our website](https://botkit.ai/docs).
+You can find full documentation for Botkit on our [Docs site](https://botkit.ai/docs/).
 
 ###  Need more help?
-* Glitch allows users to ask the community for help directly from the editor! For more information on raising your hand, [read this blog post.](https://medium.com/glitch/just-raise-your-hand-how-glitch-helps-aa6564cb1685)
 
-* Join our thriving community of Botkit developers and bot enthusiasts at large. Over 9000 members strong, [our open Slack group](http://community.botkit.ai) is _the place_ for people interested in the art and science of making bots.
+* Join our thriving community of Botkit developers and bot enthusiasts at large. Over 4500 members strong, [our open teams group](http://community.botkit.ai) is _the place_ for people interested in the art and science of making bots.
 
  Come to ask questions, share your progress, and commune with your peers!
 
 * We also host a [regular meetup and annual conference called TALKABOT.](http://talkabot.ai) Come meet and learn from other bot developers!
 
  [Full video of our 2016 event is available on Youtube.](https://www.youtube.com/playlist?list=PLD3JNfKLDs7WsEHSal2cfwG0Fex7A6aok)
+
+
 
 # About Botkit
 
